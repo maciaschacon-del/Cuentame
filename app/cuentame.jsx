@@ -113,13 +113,14 @@ REGLAS CRÍTICAS:
 ✓ Binomio de Rodari: ${tema} + ${animal}
 ✗ Sin violencia, sin villanos aterradores`;
 
-  const res=await fetch("https://api.anthropic.com/v1/messages",{
+  const res=await fetch("/api/story",{
     method:"POST",headers:{"Content-Type":"application/json"},
-    body:JSON.stringify({model:"claude-sonnet-4-20250514",max_tokens:isFinal?1200:700,system:sys,messages:[{role:"user",content:usr}]})
+    body:JSON.stringify({system:sys,user:usr,maxTokens:isFinal?1200:700})
   });
   if(!res.ok) throw new Error(`Error ${res.status}`);
   const d=await res.json();
-  return d.content[0].text;
+  if(d.error) throw new Error(d.error);
+  return d.text;
 }
 
 function parseStory(text) {
