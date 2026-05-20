@@ -11,7 +11,7 @@ export async function POST(req: Request) {
         'anthropic-version': '2023-06-01',
       },
       body: JSON.stringify({
-        model: 'claude-sonnet-4-20250514',
+        model: 'claude-haiku-4-5-20251001',
         max_tokens: maxTokens || 800,
         system,
         messages: [{ role: 'user', content: user }],
@@ -23,8 +23,10 @@ export async function POST(req: Request) {
     }
     const data = await response.json();
     return NextResponse.json({ text: data.content[0].text });
-  } catch (e: unknown) {
-    const message = e instanceof Error ? e.message : 'Unknown error';
-    return NextResponse.json({ error: message }, { status: 500 });
+  } catch (err) {
+    return NextResponse.json(
+      { error: err instanceof Error ? err.message : 'Unknown error' },
+      { status: 500 }
+    );
   }
-} 
+}
