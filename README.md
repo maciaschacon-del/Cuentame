@@ -1,32 +1,42 @@
-A simple [Next.js](https://nextjs.org) chatbot app to demonstrate the use of the Vercel AI Gateway with the [AI SDK](https://sdk.vercel.ai).
+# Cuéntame
 
-## Getting Started
+**AI-generated bedtime stories, built around the moment a parent and child choose one together.**
 
-### One-time setup
+🔗 **[Try it live](https://vercel-ai-gateway-demo-alpha-eosin.vercel.app)** — no signup required
 
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Fvercel-labs%2Fai-sdk-gateway-demo)
+---
 
-1. Clone this repository with the Deploy button above
-1. Install the [Vercel CLI](https://vercel.com/docs/cli) if you don't already have it
-1. Clone the repository you created above: `git clone <repo-url>`
-1. Link it to a Vercel project: `vc link` or `vc deploy`
+## What it is
 
-### Usage
-1. Install packages with `pnpm i` (or `npm i` or `yarn i`) and run the development server with `vc dev`
-1. Open http://localhost:3000 to try the chatbot
+Cuéntame generates personalized stories for Colombian children aged 4–8. The parent and child pick a theme and an animal together; the app writes an original story around that pair, then hands the parent three questions to ask while reading.
 
-### FAQ
+The product thesis is that the shared choosing moment — not the story itself — is what parents are actually buying. Everything else is built to protect that moment.
 
-1. If you prefer running your local development server directly rather than using `vc dev`, you'll need to run `vc env pull` to fetch the project's OIDC authentication token locally
-   1. the token expires every 12h, so you'll need to re-run this command periodically.
-   1. if you use `vc dev` it will auto-refresh the token for you, so you don't need to fetch it manually
-1. If you're linking to an existing, older project, you may need to enable the OIDC token feature in your project settings.
-   1. visit the project settings page (rightmost tab in your project's dashboard)
-   1. search for 'OIDC' in settings
-   1. toggle the button under "Secure Backend Access with OIDC Federation" to Enabled and click the "Save" button
+## Why it's not a generic story generator
 
-## Authors
+**Cognitive segmentation.** Two modes based on Piaget's developmental stages: *Modo Explorador* (ages 4–5, pre-readers) and *Modo Lector* (ages 6–8). Sentence length, vocabulary and narrative complexity differ between them.
 
-This repository is maintained by the [Vercel](https://vercel.com) team and community contributors. 
+**Dialogic reading built in.** Each story ships with a parent guide and a *Semilla de Conversación* — a question designed to sit inside the child's zone of proximal development (Vygotsky), so the parent scaffolds rather than just narrates.
 
-Contributions are welcome! Feel free to open issues or submit pull requests to enhance functionality or fix bugs.
+**Rodari's Binomio Fantástico.** Story generation is seeded by forcing two unrelated elements together, which is what produces "an elephant from the Magdalena River who is also an astronaut" instead of another dragon.
+
+**Colombian specificity is mandatory, not decorative.** Native fauna, real geography and regional speech are required elements in every generation — the Magdalena River, manatees, a heartbeat described as a cumbia drum. This is a differentiator, not localization.
+
+**Persistent characters.** Every story ends with a *Para mañana* hook that carries a character forward. Continuity across sessions is the intended switching cost.
+
+## Stack
+
+- Next.js 15 (App Router) on Vercel
+- Anthropic API (`claude-haiku-4-5`) via a server-side route — the key never reaches the browser
+- Web Audio API for generative ambient pentatonic music
+- Day/night theming tied to reading context
+
+## Context
+
+Built as the venture project for MBAE-4505 (Innovación, Emprendimiento y Venture Investment), Executive MBA, Universidad de los Andes — with Leidy Ferro and Juan Carlos Torres. Scored 4.7/5 at first review.
+
+Pedagogical framing is aligned to Colombia's MEN curriculum. Literary anchors: Rafael Pombo, Triunfo Arciniegas, Jairo Aníbal Niño.
+
+---
+
+*This is a working prototype, not a commercial product.*
