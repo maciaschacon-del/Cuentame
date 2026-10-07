@@ -34,6 +34,12 @@ The product thesis is that the shared choosing moment — not the story itself �
 - Web Audio API for generative ambient pentatonic music
 - Day/night theming tied to reading context
 
+## Audio
+
+Product video narration produced in ElevenLabs Studio (Eleven v3, expressive audio tags, Colombian Spanish voice); background score generated with ElevenMusic. Files in [`/media`](media/).
+
+**Roadmap:** conversational voice version on ElevenAgents — in progress, October 2026.
+
 ## Context
 
 Built as the venture project for MBAE-4505 (Innovación, Emprendimiento y Venture Investment), Executive MBA, Universidad de los Andes — with Leidy Ferro and Juan Carlos Torres. Scored 4.7/5 at first review.
