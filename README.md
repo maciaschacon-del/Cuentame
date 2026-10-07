@@ -24,12 +24,21 @@ The product thesis is that the shared choosing moment — not the story itself �
 
 **Persistent characters.** Every story ends with a *Para mañana* hook that carries a character forward. Continuity across sessions is the intended switching cost.
 
+**Six narrative structures, chosen by age and theme.** The server picks the story's skeleton from six structures filtered for ages 4–8: Kishōtenketsu and Aesop-style fable for *Modo Explorador* (no antagonist — the hook is surprise, not fear); Dan Harmon's Story Circle, a simplified Hero's Journey and Murdock's inner-transformation arc for *Modo Lector*; and the four age-appropriate Booker plots in both. The theme the family picks narrows the choice. See [`lib/story.ts`](lib/story.ts).
+
 ## Stack
 
 - Next.js 15 (App Router) on Vercel
 - Anthropic API (`claude-haiku-4-5`) via a server-side route — the key never reaches the browser
+- Prompt assembled on the server: the browser sends only the child's profile, inputs are validated against an allowlist, and the token budget is fixed server-side
 - Web Audio API for generative ambient pentatonic music
 - Day/night theming tied to reading context
+
+## Audio
+
+Product video narration produced in ElevenLabs Studio (Eleven v3, expressive audio tags, Colombian Spanish voice); background score generated with ElevenMusic. Files in [`/media`](media/).
+
+**Roadmap:** conversational voice version on ElevenAgents — in progress, October 2026.
 
 ## Context
 
