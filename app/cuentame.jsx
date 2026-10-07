@@ -63,63 +63,21 @@ const ANIMALS=[
 
 // ─── API ──────────────────────────────────────────────────────────────
 async function generateStory(profile, isFinal) {
-  const age = parseInt(profile.age);
-  const mode = age<=5?'EXPLORADOR':'LECTOR';
-  const wc = isFinal?(mode==='EXPLORADOR'?'150-200':'350-450'):(mode==='EXPLORADOR'?'100-140':'200-280');
-  const tema = THEMES.find(t=>t.id===profile.tema)?.label||profile.tema;
-  const animal = ANIMALS.find(a=>a.id===profile.animal)?.label||profile.animal;
-
-  const sys=`Eres el generador de cuentos de Cuéntame, plataforma educativa colombiana para padres e hijos de 4-8 años.
-
-MODO: ${mode}
-${mode==='EXPLORADOR'
-  ?`- Oraciones simples S+V+P máximo 8 palabras\n- El PADRE leerá EN VOZ ALTA\n- Extensión: ${wc} palabras`
-  :`- Oraciones compuestas, 1-2 metáforas simples\n- El NIÑO leerá con padre presente\n- Extensión: ${wc} palabras`}
-
-PASOS OBLIGATORIOS:
-1. BINOMIO DE RODARI: Combina "${tema}" + "${animal}" para el giro sorpresivo central
-2. ELEMENTO COLOMBIANO: Incluir OBLIGATORIAMENTE fauna nativa, geografía o modismo colombiano
-3. GANCHO: Primer párrafo genera intriga inmediata
-4. GIRO SORPRESIVO: El Binomio de Rodari se revela a mitad del cuento
-5. ESTRUCTURA: ${mode==='EXPLORADOR'?'Kishōtenketsu — 4 partes sin villano, enganche por sorpresa':'Círculo de Dan Harmon — 8 pasos simplificados'}
-6. CIERRE: Final positivo + Semilla de Conversación
-
-FORMATO EXACTO:
-TÍTULO: [título creativo con el nombre del niño]
-===CUENTO===
-[texto]
-===GUÍA===
-${mode==='EXPLORADOR'
-  ?'P1 (antes de leer): [pregunta]\nP2 (a mitad): [pregunta]\nP3 (al final): [pregunta]'
-  :'RETO A MITAD: [instrucción exacta para el padre]'}
-===SEMILLA===
-[UNA pregunta que conecta la fantasía con la realidad del niño]
-===MAÑANA===
-[Una frase sobre cómo continuar el personaje mañana]`;
-
-  const usr=`Perfil:
-- Nombre: ${profile.name}
-- Edad: ${age} años → Modo ${mode}
-- Contexto geográfico (NO mencionar en el cuento, solo calibrar referencias culturales y fauna regional): ${profile.city||'Colombia'}
-- Tema elegido hoy: ${tema}
-- Animal favorito: ${animal}
-- Gusto especial: ${profile.gusto||'aventuras'}
-- Mascota o amigo especial: ${profile.mascota||'(ninguno)'}
-
-REGLAS CRÍTICAS:
-✓ Protagonista SIEMPRE se llama ${profile.name}
-✓ El ${animal} es el aliado principal
-✓ Elemento colombiano OBLIGATORIO
-✓ Binomio de Rodari: ${tema} + ${animal}
-✗ Sin violencia, sin villanos aterradores`;
-
+  // The prompt is assembled on the server (lib/story.ts). The browser only
+  // sends the child's profile and the chosen length.
   const res=await fetch("/api/story",{
     method:"POST",headers:{"Content-Type":"application/json"},
-    body:JSON.stringify({system:sys,user:usr,maxTokens:isFinal?1200:700})
+    body:JSON.stringify({
+      profile:{
+        name:profile.name, age:parseInt(profile.age), city:profile.city,
+        tema:profile.tema, animal:profile.animal,
+        gusto:profile.gusto, mascota:profile.mascota,
+      },
+      isFinal,
+    })
   });
-  if(!res.ok) throw new Error(`Error ${res.status}`);
-  const d=await res.json();
-  if(d.error) throw new Error(d.error);
+  const d=await res.json().catch(()=>({}));
+  if(!res.ok||d.error) throw new Error(d.error||`Error ${res.status}`);
   return d.text;
 }
 
