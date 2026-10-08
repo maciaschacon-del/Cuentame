@@ -34,9 +34,15 @@ The product thesis is that the shared choosing moment — not the story itself �
 - Web Audio API for generative ambient pentatonic music
 - Day/night theming tied to reading context
 
-## Audio
+## Pitch video
 
-Product video narration produced in ElevenLabs Studio (Eleven v3, expressive audio tags, Colombian Spanish voice); background score generated with ElevenMusic. Files in [`/media`](media/).
+A 60-second product pitch assembled in ElevenLabs Studio: [`media/cuentame_pitch_elevenlabs.mp4`](media/cuentame_pitch_elevenlabs.mp4).
+
+- **Narration:** ElevenLabs Studio, Eleven v3 with expressive audio tags, Colombian Spanish voice ([`narracion_elevenlabs_v3.mp3`](media/narracion_elevenlabs_v3.mp3))
+- **Score:** generated with ElevenMusic ([`musica_elevenmusic.mp3`](media/musica_elevenmusic.mp3))
+- **Visuals:** six scenes generated in Studio with Wan 2.5
+
+The file in this repository is a 720p compressed copy of the Studio export.
 
 **Roadmap:** conversational voice version on ElevenAgents — in progress, October 2026.
 
