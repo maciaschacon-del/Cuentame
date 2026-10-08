@@ -44,7 +44,7 @@ A 60-second product pitch assembled in ElevenLabs Studio: [`media/cuentame_pitch
 
 The file in this repository is a 720p compressed copy of the Studio export.
 
-**Roadmap:** conversational voice version on ElevenAgents — in progress, October 2026.
+**Voice version (in progress, October 2026):** a conversational agent on ElevenLabs ElevenAgents, defined as code in [`voice-agent/`](voice-agent/) and served at `/voz`.
 
 ## Context
 
